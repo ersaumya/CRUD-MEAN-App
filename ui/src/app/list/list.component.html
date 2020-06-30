@@ -1,1 +1,21 @@
-<p>list works!</p>
+<h2>User List</h2>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of users;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.contact}}</td>
+            <td>{{item.address}}</td>
+        </tr>
+       
+    </tbody>
+</table>

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const AppConfig: IAppConfig = {
@@ -15,7 +16,7 @@ const AppConfig: IAppConfig = {
 
 @NgModule({
   declarations: [AppComponent, CreateComponent, ListComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule,HttpClientModule, AppRoutingModule],
   providers: [
     { provide: APP_CONFIG, useValue: AppConfig }
   ],
