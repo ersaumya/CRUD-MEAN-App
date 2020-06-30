@@ -1,6 +1,6 @@
-export interface User {
-    _id:string;
-    name:string;
-    contact:string;
-    address:string;
+export class User {
+    _id:String;
+    name:String;
+    contact:String;
+    address:String;
 }
