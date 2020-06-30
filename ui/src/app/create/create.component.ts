@@ -2,7 +2,7 @@ import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../model/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -11,20 +11,41 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
   user: User;
-  constructor(private userService: UserService,private router:Router) {
-    this.user=new User();
+  
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.user = new User();
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      let id = params.id;
+      if (id !== undefined) {
+        this.userService.getUser(id).subscribe(res => {
+          this.user = res;
+        });
+      }
+    });
+  }
 
   saveData(form: NgForm) {
     if (form.valid) {
-      this.userService.addUser(this.user).subscribe(
-        res=>{
-          if(res.status===201){
+      if (this.user._id !== undefined) {
+        this.userService.updateUser(this.user).subscribe((res) => {
+          if (res.status === 200) {
             this.router.navigate(['/']);
           }
         });
+      } else {
+        this.userService.addUser(this.user).subscribe((res) => {
+          if (res.status === 201) {
+            this.router.navigate(['/']);
+          }
+        });
+      }
     }
   }
 }

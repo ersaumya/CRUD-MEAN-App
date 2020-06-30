@@ -7,32 +7,35 @@ import { APP_CONFIG, IAppConfig } from '../shared/appconfig';
 @Injectable({
   providedIn: 'root',
 })
-
 export class UserService {
-  
-         headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-         constructor(
-           private http: HttpClient,
-           @Inject(APP_CONFIG) private apiconfig: IAppConfig
-         ) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(APP_CONFIG) private apiconfig: IAppConfig
+  ) {}
 
-         getUsers(): Observable<User[]> {
-           return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user');
-         }
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user');
+  }
 
-         getUser(id: string): Observable<User[]> {
-           return this.http.get<User[]>(
-             this.apiconfig.apiEndPoint + '/user/' + id
-           );
-         }
+  getUser(id: string): Observable<User[]> {
+    return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user/' + id);
+  }
 
-         addUser(user: User): Observable<HttpResponse<any>> {
-           return this.http.post(
-             this.apiconfig.apiEndPoint + '/user/',
-             JSON.stringify(user),
-             {headers: this.headers,observe:'response' }
-           );
-         }
+  addUser(user: User): Observable<HttpResponse<any>> {
+    return this.http.post(
+      this.apiconfig.apiEndPoint + '/user/',
+      JSON.stringify(user),
+      { headers: this.headers, observe: 'response' }
+    );
+  }
 
-       }
+  updateUser(user: User): Observable<HttpResponse<any>> {
+    return this.http.put(
+      this.apiconfig.apiEndPoint + '/user/'+user._id,
+      JSON.stringify(user),
+      { headers: this.headers, observe: 'response' }
+    );
+  }
+}

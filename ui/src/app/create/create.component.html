@@ -1,4 +1,5 @@
-<h2>Create User</h2>
+<h2 [hidden]="!(user._id==undefined)">Create User</h2>
+<h2 [hidden]="!(user._id!=undefined)">Edit User</h2>
 <hr>
 <div class="col-sm-6">
     <form  #form="ngForm" (ngSubmit)="saveData(form)">

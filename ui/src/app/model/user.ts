@@ -1,6 +1,6 @@
 export class User {
-    _id:String;
-    name:String;
-    contact:String;
-    address:String;
+    _id?:string;
+    name?:string;
+    contact?:string;
+    address?:string;
 }
