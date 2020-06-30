@@ -32,5 +32,18 @@ router.post("/", (req, res) => {
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
     });
 });
+
+//Update data method
+router.put("/:id", (req, res) => {
+  let id=req.params.id;
+  const obj = req.body;
+  user.findByIdAndUpdate(id,{name:obj.name,contact:obj.contact,address:obj.address},(err,doc)=>{
+    if(err){
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
+    }else{
+      res.status(httpStatusCode.OK).send(doc);
+    }
+  });
+});
 module.exports=router;
 
