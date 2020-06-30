@@ -17,7 +17,8 @@
             <td>{{item.contact}}</td>
             <td>{{item.address}}</td>
             <td>
-                <a [routerLink]="['/edit',item._id]" class="btn btn-success">Edit</a>
+                <a [routerLink]="['/edit',item._id]" class="btn btn-success">Edit</a> |
+                <a href="javascript:void(0);" class="btn btn-danger" (click)="deleteUser(item._id)">Delete</a>
             </td>
         </tr>
        

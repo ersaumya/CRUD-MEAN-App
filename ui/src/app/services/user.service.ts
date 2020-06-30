@@ -24,18 +24,27 @@ export class UserService {
   }
 
   addUser(user: User): Observable<HttpResponse<any>> {
-    return this.http.post(
-      this.apiconfig.apiEndPoint + '/user/',
-      JSON.stringify(user),
-      { headers: this.headers, observe: 'response' }
+    return (
+      this.http.post<HttpResponse<any>>(
+        this.apiconfig.apiEndPoint + '/user/',
+        JSON.stringify(user),
+        { headers: this.headers, observe: 'response' }
+      )
     );
   }
 
   updateUser(user: User): Observable<HttpResponse<any>> {
     return this.http.put(
-      this.apiconfig.apiEndPoint + '/user/'+user._id,
+      this.apiconfig.apiEndPoint + '/user/' + user._id,
       JSON.stringify(user),
       { headers: this.headers, observe: 'response' }
+    );
+  }
+
+  deleteUser(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(
+      this.apiconfig.apiEndPoint + '/user/' + id,
+      { observe: 'response' }
     );
   }
 }
