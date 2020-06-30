@@ -45,5 +45,19 @@ router.put("/:id", (req, res) => {
     }
   });
 });
+
+//Delete by id method
+router.delete("/:id", (req, res) => {
+  let id = req.params.id;
+  const obj = req.body;
+  user.findByIdAndDelete(id, (err, doc) => {
+    if (err) {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
+    } else {
+      res.send(doc);
+    }
+  });
+});
+
 module.exports=router;
 
