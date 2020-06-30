@@ -3,6 +3,7 @@ const express = require('express'),
       router=express.Router();
 
 const user=require('../models/user.model');
+
 //get data method
 router.get('/',(req,res)=>{
   user.find().then(docs=>{
@@ -11,6 +12,17 @@ router.get('/',(req,res)=>{
         res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err); 
     })
 });
+
+//get data by id method
+router.get('/:id', (req, res) => {
+  let id=req.params.id;
+  user.findById(id).then(docs => {
+    res.send(docs);
+  }).catch(err => {
+    res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
+  })
+});
+
 //post data method
 router.post("/", (req, res) => {
   const obj=req.body;
