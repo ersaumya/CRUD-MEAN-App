@@ -14,8 +14,8 @@ const app=express();
 app.use(cors());
 
 //json parsing
-app.use(bodyParser.json());
-//app.use(express.json());
+//app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/api',apiRoutes);
 

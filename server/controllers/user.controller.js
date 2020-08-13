@@ -59,5 +59,18 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-module.exports=router;
+//Register user
+router.post('/register',(req,res)=>{
+  let userData=req.body 
+  let newUser= new user(userData)
+  newUser.save((error,registerUser)=>{
+    if(error){
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(error);
+    }
+    else{
+      res.status(httpStatusCode.OK).send(registerUser);
+    }
+  })
+})
 
+module.exports=router;
