@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
   user: User;
-  
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -21,10 +21,10 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       let id = params.id;
       if (id !== undefined) {
-        this.userService.getUser(id).subscribe(res => {
+        this.userService.getUser(id).subscribe((res) => {
           this.user = res;
         });
       }

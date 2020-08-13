@@ -19,8 +19,8 @@ export class UserService {
     return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user');
   }
 
-  getUser(id: string): Observable<User[]> {
-    return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user/' + id);
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(this.apiconfig.apiEndPoint + '/user/' + id);
   }
 
   addUser(user: User): Observable<HttpResponse<any>> {
