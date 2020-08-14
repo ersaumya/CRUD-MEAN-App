@@ -1,5 +1,8 @@
 <h2>User List</h2>
 <hr />
+<a class="nav-link" class="btn btn-success" routerLink="/create">Add User</a>
+<br/>
+<br/>
 <table class="table">
   <thead>
     <tr>
@@ -19,7 +22,7 @@
       <td>{{ item.address }}</td>
       <td>{{ item.email }}</td>
       <td>
-        <a [routerLink]="['/edit', item._id]" class="btn btn-success">Edit</a> |
+        <a [routerLink]="['/edit', item._id]" class="btn btn-primary">Edit</a> |
         <a
           href="javascript:void(0);"
           class="btn btn-danger"
