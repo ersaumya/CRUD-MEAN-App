@@ -2,11 +2,11 @@ const express = require('express'),
       httpStatusCode=require('http-status-codes'),
       router=express.Router();
 
-const user=require('../models/user.model');
+const User=require('../models/user.model');
 
 //get data method
 router.get('/',(req,res)=>{
-  user.find().then(docs=>{
+  User.find().then(docs=>{
       res.send(docs);
     }).catch(err=>{
         res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err); 
@@ -16,7 +16,7 @@ router.get('/',(req,res)=>{
 //get data by id method
 router.get('/:id', (req, res) => {
   let id=req.params.id;
-  user.findById(id).then(docs => {
+  User.findById(id).then(docs => {
     res.send(docs);
   }).catch(err => {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 //post data method
 router.post("/", (req, res) => {
   const obj=req.body;
-  user.create(obj).then(doc => {
+  User.create(obj).then(doc => {
       res.status(httpStatusCode.CREATED).send(doc);
     }).catch((err) => {
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   let id=req.params.id;
   const obj = req.body;
-  user.findByIdAndUpdate(id,{name:obj.name,contact:obj.contact,address:obj.address},(err,doc)=>{
+  User.findByIdAndUpdate(id,{name:obj.name,contact:obj.contact,address:obj.address},(err,doc)=>{
     if(err){
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
     }else{
@@ -50,7 +50,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   let id = req.params.id;
   const obj = req.body;
-  user.findByIdAndDelete(id, (err, doc) => {
+  User.findByIdAndDelete(id, (err, doc) => {
     if (err) {
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(err);
     } else {
@@ -62,7 +62,7 @@ router.delete("/:id", (req, res) => {
 //Register user
 router.post('/register',(req,res)=>{
   let userData=req.body 
-  let newUser= new user(userData)
+  let newUser= new User(userData)
   newUser.save((error,registerUser)=>{
     if(error){
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(error);
@@ -70,7 +70,27 @@ router.post('/register',(req,res)=>{
     else{
       res.status(httpStatusCode.OK).send(registerUser);
     }
-  })
-})
+  });
+});
+
+//Login 
+router.post('/login',(req,res)=>{
+  let userData=req.body
+  User.findOne({email:userData.email},(error,user)=>{
+    if(error) {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(error);
+    }
+     else{
+       if(!user){
+         res.status(httpStatusCode.UNAUTHORIZED).send('Invalid email');
+       }else
+        if(user.password !== userData.password){
+          res.status(httpStatusCode.UNAUTHORIZED).send('Invalid password');
+        }else{
+           res.status(httpStatusCode.OK).send(user);
+        }
+    }
+  });
+});
 
 module.exports=router;
