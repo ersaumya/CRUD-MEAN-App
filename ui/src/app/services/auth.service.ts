@@ -23,4 +23,8 @@ export class AuthService {
   login(user){
     return this.http.post<any>(this.apiconfig.apiEndPoint+'/login',user);
   }
+
+  isLoggedIn(){
+    return !!localStorage.getItem('token');
+  }
 }

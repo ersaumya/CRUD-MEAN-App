@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
@@ -13,7 +14,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'list',component:ListComponent},
+  {path:'list',component:ListComponent,canActivate:[AuthGuard]},
   {path:'create',component:CreateComponent},
   {path:'edit/:id',component:CreateComponent}
 ];
