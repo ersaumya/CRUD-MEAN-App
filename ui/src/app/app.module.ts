@@ -1,3 +1,4 @@
+import { TokenInterceptor } from './token.interceptor';
 import { APP_CONFIG, IAppConfig } from './shared/appconfig';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,7 +8,7 @@ import { AppComponent } from './app.component';
 import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 import { environment } from 'src/environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -18,10 +19,24 @@ const AppConfig: IAppConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, CreateComponent, ListComponent, RegisterComponent, LoginComponent, HomeComponent],
-  imports: [BrowserModule,FormsModule,HttpClientModule,ReactiveFormsModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    CreateComponent,
+    ListComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+  ],
   providers: [
-    { provide: APP_CONFIG, useValue: AppConfig }
+    { provide: APP_CONFIG, useValue: AppConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

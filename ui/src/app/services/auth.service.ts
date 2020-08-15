@@ -14,17 +14,19 @@ export class AuthService {
     @Inject(APP_CONFIG) private apiconfig: IAppConfig
   ) {}
 
-  register(user){
-    return this.http.post<any>(
-      this.apiconfig.apiEndPoint + '/register',user
-    );
+  register(user) {
+    return this.http.post<any>(this.apiconfig.apiEndPoint + '/register', user);
   }
 
-  login(user){
-    return this.http.post<any>(this.apiconfig.apiEndPoint+'/login',user);
+  login(user) {
+    return this.http.post<any>(this.apiconfig.apiEndPoint + '/login', user);
   }
 
-  isLoggedIn(){
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  isLoggedIn() {
     return !!localStorage.getItem('token');
   }
 }
