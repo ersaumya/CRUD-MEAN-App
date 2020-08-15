@@ -19,4 +19,8 @@ export class AuthService {
       this.apiconfig.apiEndPoint + '/register',user
     );
   }
+
+  login(user){
+    return this.http.post<any>(this.apiconfig.apiEndPoint+'/login',user);
+  }
 }
