@@ -16,17 +16,17 @@ export class UserService {
   ) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiconfig.apiEndPoint + '/user');
+    return this.http.get<User[]>(this.apiconfig.apiEndPoint);
   }
 
   getUser(id: string): Observable<User> {
-    return this.http.get<User>(this.apiconfig.apiEndPoint + '/user/' + id);
+    return this.http.get<User>(this.apiconfig.apiEndPoint +'/' + id);
   }
 
   addUser(user: User): Observable<HttpResponse<any>> {
     return (
       this.http.post<HttpResponse<any>>(
-        this.apiconfig.apiEndPoint + '/user/',
+        this.apiconfig.apiEndPoint + '/',
         JSON.stringify(user),
         { headers: this.headers, observe: 'response' }
       )
@@ -35,7 +35,7 @@ export class UserService {
 
   updateUser(user: User): Observable<HttpResponse<any>> {
     return this.http.put(
-      this.apiconfig.apiEndPoint + '/user/' + user._id,
+      this.apiconfig.apiEndPoint + '/' + user._id,
       JSON.stringify(user),
       { headers: this.headers, observe: 'response' }
     );
@@ -43,7 +43,7 @@ export class UserService {
 
   deleteUser(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<HttpResponse<any>>(
-      this.apiconfig.apiEndPoint + '/user/' + id,
+      this.apiconfig.apiEndPoint + '/' + id,
       { observe: 'response' }
     );
   }

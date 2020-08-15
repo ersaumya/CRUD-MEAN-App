@@ -4,4 +4,5 @@ export class User {
     contact:string;
     address:string;
     email:string;
+    password:string;
 }
