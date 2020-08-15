@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ui';
+  
+  constructor(private auth:AuthService){
+
+  }
+
+  check():boolean{
+    return this.auth.isLoggedIn();
+  }
+  logout(){
+    this.auth.logoutUser();
+  }
 }

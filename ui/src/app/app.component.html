@@ -10,12 +10,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-iten">
-        <a class="nav-link" routerLink="/list" routerLinkActive="active">Users</a>
+        <a class="nav-link" *ngIf="check()" routerLink="/list" routerLinkActive="active">Users</a>
       </li>
     </ul>
     <ul class="navbar-nav">
-      <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-      <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+      <a class="nav-link" *ngIf="!check()" routerLink="/login" routerLinkActive="active">Login</a>
+      <a class="nav-link" *ngIf="!check()" routerLink="/register" routerLinkActive="active">Register</a>
+      <a class="nav-link" style="cursor: pointer;" *ngIf="check()" (click)="logout()">Logout</a>
     </ul>
   </div>
 </nav>

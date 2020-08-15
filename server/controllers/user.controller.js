@@ -15,7 +15,7 @@ router.get('/',(req,res)=>{
 });
 
 //get data by id method
-router.get('/:id', (req, res) => {
+router.get('/:id', verifyToken, (req, res) => {
   let id=req.params.id;
   User.findById(id).then(docs => {
     res.send(docs);
@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
 });
 
 //Update data method
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
   let id=req.params.id;
   const obj = req.body;
   User.findByIdAndUpdate(id,{name:obj.name,contact:obj.contact,address:obj.address},(err,doc)=>{
@@ -48,7 +48,7 @@ router.put("/:id", (req, res) => {
 });
 
 //Delete by id method
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
   let id = req.params.id;
   const obj = req.body;
   User.findByIdAndDelete(id, (err, doc) => {
@@ -101,5 +101,20 @@ router.post('/login',(req,res)=>{
     }
   });
 });
-
+//middleware for token verification
+function verifyToken(req,res,next){
+  if(!req.headers.authorization){
+    return res.status(httpStatusCode.UNAUTHORIZED).send('Unauthorized request')
+  }
+  let getToken=req.headers.authorization.split(' ')[1]
+  if(getToken === 'null'){
+    return res.status(httpStatusCode.UNAUTHORIZED).send('Unauthorized request')
+  }
+  let payload=jwt.verify(getToken,'secretKey')
+  if(!payload){
+    return res.status(httpStatusCode.UNAUTHORIZED).send('Unauthorized request')
+  }
+  req.userId=payload.subject
+  next()
+}
 module.exports=router;

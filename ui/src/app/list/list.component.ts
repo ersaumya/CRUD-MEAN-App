@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
@@ -9,12 +11,18 @@ import { User } from '../model/user';
 })
 export class ListComponent implements OnInit {
   users: User[];
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private router:Router) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((res) => {
-      this.users = res;
-    });
+    this.userService.getUsers().subscribe(
+      (res) => {this.users = res;},
+      (err)=>{
+        if(err instanceof HttpErrorResponse){
+          if(err.status===401){
+            this.router.navigate(['/login'])
+          }
+        }
+      });
   }
 
   deleteUser(id){

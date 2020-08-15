@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
       if (this.user._id !== undefined) {
         this.userService.updateUser(this.user).subscribe((res) => {
           if (res.status === 200) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/list']);
           }
         });
       } else {

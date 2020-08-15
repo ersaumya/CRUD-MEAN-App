@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { APP_CONFIG, IAppConfig } from '../shared/appconfig';
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(
-    private http: HttpClient,
+    private http: HttpClient,private router:Router,
     @Inject(APP_CONFIG) private apiconfig: IAppConfig
   ) {}
 
@@ -28,5 +29,9 @@ export class AuthService {
 
   isLoggedIn() {
     return !!localStorage.getItem('token');
+  }
+  logoutUser(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/home']);
   }
 }
