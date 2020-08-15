@@ -1,5 +1,6 @@
 const express = require('express'),
       httpStatusCode=require('http-status-codes'),
+      jwt=require('jsonwebtoken'),
       router=express.Router();
 
 const User=require('../models/user.model');
@@ -68,7 +69,11 @@ router.post('/register',(req,res)=>{
       res.status(httpStatusCode.INTERNAL_SERVER_ERROR).send(error);
     }
     else{
-      res.status(httpStatusCode.OK).send(registerUser);
+      //token generate
+      let payload={subject:registerUser._id}
+      let token=jwt.sign(payload,'secretKey')
+
+      res.status(httpStatusCode.OK).send({token});
     }
   });
 });
@@ -87,7 +92,11 @@ router.post('/login',(req,res)=>{
         if(user.password !== userData.password){
           res.status(httpStatusCode.UNAUTHORIZED).send('Invalid password');
         }else{
-           res.status(httpStatusCode.OK).send(user);
+          //token generate
+          let payload={subject:user._id}
+          let token= jwt.sign(payload,'secretKey')
+
+           res.status(httpStatusCode.OK).send({token});
         }
     }
   });
