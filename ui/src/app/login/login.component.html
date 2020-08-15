@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Login</h3>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="loginUser()" novalidate>
+                   
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" formControlName="email" name="email" class="form-control rounded-0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" formControlName="password"  name="password" class="form-control rounded-0" required>
+                    </div>
+                   
+                    <button type="submit"  class="btn btn-success float-right">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
